@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.nom }} - Détails du Produit{% endblock %}
+
+{% block content %}
+<div class="container mt-5 product-image-detail-section">
+    <div class="row">
+        <!-- Image et note du produit à gauche -->
+        <div class="col-md-6">
+            <div class="container mt-4">
+                <div class="row">
+                    <!-- Image principale -->
+                    <div class="col-md-12 col-12">
+                        <div class="card">
+                            <img id="main-image" src="{{ product.photo.url }}" class="product-image-detail img-fluid rounded" alt="{{ product.nom }}">
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <h5>Variantes</h5>
+                        <div class="d-flex flex-wrap justify-content-start" id="variant-container">
+                            <!-- Afficher l'image principale parmi les variantes -->
+                            <div class="card m-2" style="width: 100px; height: 100px; cursor: pointer;" onclick="changeMainImage(this)">
+                                <img src="{{ product.photo.url }}" 
+                                     class="card-img-top img-fluid rounded" 
+                                     alt="{{ product.nom }}" 
+                                     style="height: 100px; width: 100px; object-fit: cover;">
+                            </div>
+            
+                            {% if produit_variant %}
+                                {% for variant in produit_variant %}
+                                    <div class="card m-2" style="width: 100px; height: 100px; cursor: pointer;" onclick="changeMainImage(this)">
+                                        <img src="{{ variant.photo_variant.url }}" 
+                                             class="card-img-top img-fluid rounded" 
+                                             alt="{{ variant.nom }}" 
+                                             style="height: 100px; width: 100px; object-fit: cover;">
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <p>Aucune variante disponible.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Note du produit sous l'image -->
+            <div class="rating-star mt-3">
+                <span>
+                  <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}"
+                    aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}"
+                    aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}"
+                    aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}"
+                    aria-hidden="true"></i>
+                  <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}"
+                    aria-hidden="true"></i>
+                  <span>{{ product.averageReview|floatformat:1 }} / 5 - {{ product.countReview }} avis</span>
+                </span>
+            </div>
+
+            <!-- Formulaire d'évaluation du produit -->
+            <form action="{% if product.id %}{% url 'rating:add_review' product.id %}{% endif %}" method="POST" class="mt-4">
+                {% csrf_token %}
+                <h5>Écrire un avis</h5>
+                <label>Évaluer ce produit :</label>
+                <div class="rate">
+                    <input type="radio" name="rating" id="rating10" value="5" required /><label for="rating10" title="5"></label>
+                    <input type="radio" name="rating" id="rating9" value="4.5" required /><label for="rating9" title="4.5" class="half"></label>
+                    <input type="radio" name="rating" id="rating8" value="4" required /><label for="rating8" title="4"></label>
+                    <input type="radio" name="rating" id="rating7" value="3.5" required /><label for="rating7" title="3.5" class="half"></label>
+                    <input type="radio" name="rating" id="rating6" value="3" required /><label for="rating6" title="3"></label>
+                    <input type="radio" name="rating" id="rating5" value="2.5" required /><label for="rating5" title="2.5" class="half"></label>
+                    <input type="radio" name="rating" id="rating4" value="2" required /><label for="rating4" title="2"></label>
+                    <input type="radio" name="rating" id="rating3" value="1.5" required /><label for="rating3" title="1.5" class="half"></label>
+                    <input type="radio" name="rating" id="rating2" value="1" required /><label for="rating2" title="1"></label>
+                    <input type="radio" name="rating" id="rating1" value="0.5" required /><label for="rating1" title="0.5" class="half"></label>
+                </div>
+                <div class="form-group mt-3">
+                    <textarea name="review" class="form-control" rows="3" placeholder="Donnez votre avis..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Soumettre</button>
+            </form>
+            {% if messages %}
+            <div class="messages pt-2">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-mdb-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        
+    {% endif %}
+            <div class="mt-5">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="display-9 font-weight-bold product-title" id="reviews">Avis des utilisateurs</h4>
+                    <a class="text-success" href="#reviewSection" data-bs-toggle="collapse" aria-expanded="false" aria-controls="reviewSection">Voir tous les avis</a>
+                </div>
+            
+                <!-- Affichage du premier avis par défaut -->
+                <div class="mt-3">
+                    {% if reviews %}
+                        <!-- Afficher le premier avis en dehors du dropdown -->
+                        <div class="review-item mt-4 d-flex">
+                           
+                            
+                            <div class="user-circle d-flex align-items-center justify-content-center me-2">
+                                {{ reviews.0.user.username|slice:":2" }}
+                            </div>
+                            <div class="ms-3 w-100">
+                                <!-- Nom, Date et Icones d'édition/suppression pour l'utilisateur connecté -->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <h6 class="font-weight-bold mb-0">{{ reviews.0.user.username }}</h6>
+                                        <small class="text-muted ms-3">{{ reviews.0.created_at|date:"d M, Y" }}</small>
+                                    </div>
+            
+                                  <!-- Icônes d'édition/suppression si l'utilisateur connecté est celui qui a commenté -->
+                                {% if request.user == reviews.0.user %}
+                                <div>
+                                   
+                                    <a href="#" class="text-info me-2" data-bs-toggle="modal" data-bs-target="#editModal" onclick="setEditAction('{% url 'rating:edit_review' reviews.0.id %}', '{{ reviews.0.content}}');">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    
+                                    {% comment %} <a href="{% url 'rating:delete_review' reviews.0.id %}">
+                                            <i class="fas fa-trash-alt text-danger"></i>
+                                    </a> {% endcomment %}
+                                    <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteAction('{% url 'rating:delete_review' reviews.0.id %}');">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                                {% endif %}
+
+                                </div>
+                       <!--MODAL DE SUPRESION-->
+                            <!-- Modal de confirmation de suppression -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Confirmer la suppression</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Êtes-vous sûr de vouloir supprimer cet avis ? Cette action est irréversible.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                <form id="deleteForm" action="{% url 'rating:delete_review' reviews.0.id %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--fin modal de supression-->
+                <!--MODAL EDIT REVIEW-->
+                           <!-- Modal de confirmation de suppression -->
+                         <!-- Modal d'édition -->
+<!-- Modal pour Éditer l'Avis -->
+<!-- Modal pour l'édition de l'avis -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Modifier l'avis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'rating:edit_review' reviews.0.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="reviewContent" class="form-label">Contenu de l'avis</label>
+                        <textarea class="form-control" id="reviewContent" name="content" rows="3">{{ reviews.0.review }}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <!--FIN MODAL EDIT REVIEW-->
+                                <!-- Note -->
+                                <div class="rating-star">
+                                    {% for i in '12345' %}
+                                        <i class="fa {% if reviews.0.rating >= forloop.counter %}fa-star{% elif reviews.0.rating >= forloop.counter0 and reviews.0.rating < forloop.counter %}fa-star-half-o{% else %}fa-star-o{% endif %}" aria-hidden="true"></i>
+                                    {% endfor %}
+                                </div>
+            
+                                <!-- Commentaire -->
+                                <p class="mt-2">{{ reviews.0.review }}</p>
+                            </div>
+                        </div>
+                        {% comment %} <hr> {% endcomment %}
+                    {% else %}
+                    <p class="text-muted mt-3">Aucun autre avis n'a été publié pour ce produit.</p>
+                    {% endif %}
+
+                </div>
+            
+                <!-- Section collapsible pour les autres avis -->
+                <div id="reviewSection" class="collapse">
+                    {% if reviews|length > 1 %}
+                        <div class="review-list mt-3">
+                            {% for review in reviews|slice:"1:" %}
+                                <div class="review-item mt-4 d-flex">
+                                    <!-- Cercle avec l'initiale de l'utilisateur -->
+                                    <div class="user-circle d-flex align-items-center justify-content-center me-2">
+                                        {{ review.user.username|slice:"0:2" }}
+                                    </div>
+                                    <div class="ms-3 w-100">
+                                        <!-- Nom et Date -->
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center">
+                                                <h6 class="font-weight-bold mb-0">{{ review.user.username }}</h6>
+                                                <small class="text-muted ms-3">{{ review.created_at|date:"d M, Y" }}</small>
+                                            </div>
+            
+                                            <!-- Icônes d'édition/suppression si l'utilisateur connecté est celui qui a commenté -->
+                                            {% if request.user == review.user %}
+                                                <div>
+                                                    <a href="{% url 'rating:edit_review' review.id %}" class="text-info me-2"><i class="fas fa-edit"></i></a>
+                                                    <a href="{% url 'rating:delete_review' review.id %}" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+            
+                                        <!-- Note -->
+                                        <div class="rating-star">
+                                            {% for i in '12345' %}
+                                                <i class="fa {% if review.rating >= forloop.counter %}fa-star{% elif review.rating >= forloop.counter0 and review.rating < forloop.counter %}fa-star-half-o{% else %}fa-star-o{% endif %}" aria-hidden="true"></i>
+                                            {% endfor %}
+                                        </div>
+            
+                                        <!-- Commentaire -->
+                                        <p class="mt-2">{{ review.review }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                      {% endif %}
+                </div>
+                
+            </div>
+            
+            
+            
+        </div>
+
+        <!-- Informations du produit et du vendeur à droite -->
+        <div class="col-md-6">
+            <h1 class="display-7 font-weight-bold product-title">{{ product.nom }}</h1>
+            <p class="text-muted">{{ product.description }}</p>
+            <p><span class="product-property fw-bold">Prix :</span> <span class="text-success">{{ product.prix }} FCFA</span></p>
+            <p><span class="product-property fw-bold">Stock :</span> <span class="badge bg-success fw-bold">{{ product.stock }} disponibles</span></p>
+
+            <!-- Informations sur le vendeur -->
+            {% if product.adresse %}
+            <hr>
+            <h5 class="mt-4 fw-bold product-property">Informations sur le vendeur</h5>
+            <p><span class="fw-bold product-property">Ville :</span> <span class="text-muted">{{ product.adresse.ville }}</span></p>
+            <p><span class="fw-bold product-property">Quartier :</span> <span class="text-muted">{{ product.adresse.quartier }}</span></p>
+            <p><span class="fw-bold product-property">Repère :</span> <span class="text-muted">{{ product.adresse.repere }}</span></p>
+            <p><span class="fw-bold product-property">Téléphone :</span> <a href="tel:+{{ product.adresse.contact }}">{{ product.adresse.contact }}</a></p>
+            <p><a href="https://wa.me/{{ product.adresse.contact }}" class="btn btn-outline-success"><i class="fab fa-whatsapp"></i> Contacter sur WhatsApp</a></p>
+            {% else %}
+            <p>Aucune adresse trouvée pour ce produit.</p>
+            {% endif %}
+
+            <!-- Boutons de partage -->
+            <h5 class="mt-4 product-property fw-bold">Partager ce produit</h5>
+            <div class="social-buttons-container d-flex justify-content-start">
+                <a href="https://www.instagram.com/?url={{ request.build_absolute_uri }}" class="btn-circle btn-outline-danger text-lowercase me-2" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" class="btn-circle btn-outline-primary text-lowercase me-2" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text={{ product.nom }} - {{ product.prix }}" class="btn-circle btn-outline-info text-lowercase me-2" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri }}&media={{ product.photo.url }}&description={{ product.nom }} - {{ product.prix }}" class="btn-circle btn-outline-danger text-lowercase me-2" target="_blank"><i class="fab fa-pinterest"></i></a>
+                <a href="https://wa.me/?text={{ product.nom }} - {{ product.prix }} {{ request.build_absolute_uri }}" class="btn-circle btn-outline-success text-lowercase me-2" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Produits similaires -->
+    <div class="mt-5 mb-5">
+        <h4 class="display-9 font-weight-bold product-title">Produits similaires</h4>
+        <div class="row">
+            {% for similar_product in similar_products %}
+            <div class="col-md-4 mt-3">
+                <div class="card h-100 product-card">
+                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+                        <img src="{{ similar_product.photo.url }}" class="w-100" alt="{{ similar_product.nom }}" />
+                        <a href="{% url 'pro_commerce:product_detail' similar_product.id %}">
+                            <div class="hover-overlay">
+                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <a href="{% url 'pro_commerce:product_detail' similar_product.id %}" class="text-reset text-decoration-none">
+                            <h6 class="card-title mb-3 text-muted">{{ similar_product.nom }}</h6>
+                        </a>
+                        <div class="rating-star">
+                            <span>
+                              <i class="fa fa-star{% if similar_product.averageReview < 0.5 %}-o{% elif similar_product.averageReview >= 0.5 and similar_product.averageReview < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                              <i class="fa fa-star{% if similar_product.averageReview < 1.5 %}-o{% elif similar_product.averageReview >= 1.5 and similar_product.averageReview < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                              <i class="fa fa-star{% if similar_product.averageReview < 2.5 %}-o{% elif similar_product.averageReview >= 2.5 and similar_product < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                              <i class="fa fa-star{% if similar_product.averageReview < 3.5 %}-o{% elif similar_product.averageReview >= 3.5 and similar_product.averageReview < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                              <i class="fa fa-star{% if similar_product.averageReview < 4.5 %}-o{% elif similar_product.averageReview >= 4.5 and similar_product.averageReview < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                              <span>{{ similar_product.countReview }} avis</span>
+                            </span>
+                        </div>
+                        <div class="d-flex align-items-center mb-3 pt-1">
+                            <h6 class="mb-0 text-muted">{{ similar_product.prix }} FCFA</h6>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-auto">
+                            <a href="{% url 'pro_commerce:product_detail' similar_product.id %}" class="rounded-pill px-3 text-primary">
+                                <button class="btn btn-outline-warning">Voir plus</button></a>
+                            <div class="icon-group">
+                              <i class="{% if similar_product.id in favorite_products %}fas{% else %}far{% endif %} fa-heart fa-1x mx-2 text-danger" onclick="toggleFavorite({{ product.id }}, this)" data-mdb-toggle="popover" data-mdb-content="Ajoutez ce produit à vos favoris" style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

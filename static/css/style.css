@@ -1,0 +1,712 @@
+/*........................... RESPONSIVE PARTY  ......................................................*/
+
+/* HERO PARTY */
+.carousel-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.carousel-caption {
+  bottom: 20%;
+}
+
+
+/* defilement image des categories  */
+ 
+ /* Style pour les boutons du carrousel */
+
+ .carousel-button.next,
+.carousel-button.prev {
+  position: relative;
+  left: 50px;
+  background-color: white; /* Fond blanc */
+  border: 1px solid #1A237E; /* Bordure de couleur #1A237E */
+  color: #1A237E; /* Couleur du texte et icônes */
+  padding: 10px 20px; /* Espacement autour du bouton */
+  border-radius: 50%; /* Arrondir les bords légèrement */
+  font-weight: bold; /* Texte en gras */
+  transition: background-color 0.3s, color 0.3s; /* Transition douce pour hover */
+}
+/* Effet au survol des boutons */
+
+.carousel-button.next:hover,
+.carousel-button.prev:hover {
+  background-color: #1A237E; /* Fond bleu foncé au survol */
+  color: white; /* Texte blanc au survol */
+}
+.carousel-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  position: relative;
+}
+.carou .carousel-item {
+  display: inline-block;
+  width: 200px; /* Ajustez la largeur des éléments */
+  margin-right: 15px; /* Espacement entre les éléments */
+}
+
+  /* Style pour les boutons du carrousel */
+
+ 
+/* Style pour la scrollbar cachée */
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+.carousel-container {
+  -ms-overflow-style: none; /* Cache la scrollbar sur Internet Explorer et Edge */
+  scrollbar-width: none; /* Cache la scrollbar sur Firefox */
+}
+/* fin defilement image des categories  */
+
+/*............................ END RESPONSIVE PARTY .................................................... */
+
+/* CATEGORY SUB CATEGORY  */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: #e2e6ea;
+  color: #000;
+  transition:0.4s;
+}
+
+.dropdown-menu .dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu .dropdown-submenu>.dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-top: 0;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu .dropdown-submenu .dropdown-item:hover,
+.dropdown-menu .dropdown-submenu .dropdown-item:focus {
+  background-color: #d1d5db;
+  color: #000;
+}
+/* END CATEGORY SUB CATEGORY  */
+/* HERO PARTY  */
+.hero-caroussel{
+  
+}
+.carousel-img {
+    height: 300px; /* Ajustez cette hauteur selon vos besoins */
+    object-fit: cover;
+    width: 400px;
+    object-position: center;
+    border-radius: 4%;
+    
+
+  }
+
+.header-link{
+  color: rgba(255, 255, 255, 0.911);
+  
+}
+.hero-title,.hero-title-title{
+  color: #3f3f69;
+}
+.btn-search-bar{
+  position: absolute;
+  top: 0;
+   right: 25%;
+ background-color:#3f3f69;
+}
+
+.l{
+  padding: 30px;
+}
+.btn-search-bar:hover{
+  background-color:#3f3f69 ;
+  opacity: 0.5;
+  color: transparent;
+  transition: 1s;
+}
+  .produit-button{
+    /* background-color: #3f3f69; */
+    height: 13%;
+    width: 37%;
+    border-color: #3f3f69 ;;
+    border-radius: 7%;
+    color: #3f3f69;;
+    font-weight: bold;
+  }
+  .produit-button:hover{
+         background-color: #3f3f69;   
+         transition: 1s;
+         color: white;
+
+  }
+  .background_image{
+      /* background-image: url(/assets/images/ariere_plan1.jpg);
+   
+      background-size: cover;
+      height: 78vh;
+      opacity: 0.2; */
+      
+      /* height: 100vh; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative; */
+        /* opacity: 0.4; */
+        height: 95vh;
+      background-color: rgba(0, 0, 0, 0);
+      background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-origin: padding-box, padding-box;
+background-clip: border-box, border-box;
+background-image: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url("/assets/images/ariere_plan1.jpg");
+  }
+  
+  .carousel-slide-title-product{
+    color:white;
+    font-weight: bold;
+    opacity: 0.5;
+    background-color: #3f3f69;
+    border-radius: 7%;
+    padding: 3%;
+  }
+  .carousel-caption{
+    margin-bottom: 20%;
+  }
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 20px; /* Ajustez cette valeur selon vos besoins */
+    height: 20px; /* Ajustez cette valeur selon vos besoins */
+    background-size: 20px 30px; /* Assurez-vous que la taille de fond correspond à la taille des icônes */
+  }
+  .carousel-next,.carousel-prev {
+    background-color: #3f3f69;
+    color:transparent;
+  /* border: 2px solid #007bff; */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  }
+/* FILTRER PARTY */
+  /* Général */
+ /* Filtre de recherche et ville */
+.filter {
+  margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+  border-radius: 5px 0 0 5px;
+}
+
+.search-bar .btn-primary {
+  border-radius: 0 5px 5px 0;
+  height: 100%;
+}
+
+.bg-light {
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+  
+  @media (max-width: 767px) {
+    .bg-light {
+      max-width: 100%;
+    }
+  
+    .bg-light .form-select-sm {
+      width: 100%;
+    }
+  }
+  
+  /* END FILTER PARTY */
+/* END HERO PARTY */
+/* PAGINATION  */
+/* END PAGINATION */
+/* Général */
+.pagination {
+  margin: 0 auto;
+}
+
+/* Liens de pagination */
+.page-link {
+  border-radius: 0.375rem; /* Coin arrondi */
+  padding: 0.5rem 1rem; /* Espacement */
+  font-size: 0.875rem; /* Taille de la police */
+  transition: background-color 0.2s ease; /* Effet de transition */
+}
+
+.page-link:hover {
+  background-color: #e9ecef; /* Couleur de fond au survol */
+}
+
+/* État actif */
+.page-item.active .page-link {
+  background-color: #007bff; /* Couleur de fond active */
+  color: white; /* Couleur du texte active */
+  border-color: #007bff; /* Bordure active */
+}
+
+/* Désactivé */
+.page-item.disabled .page-link {
+  color: #6c757d; /* Couleur du texte désactivé */
+  pointer-events: none; /* Désactiver les clics */
+  background-color: #f8f9fa; /* Couleur de fond désactivée */
+  border-color: #dee2e6; /* Bordure désactivée */
+}
+
+/* Réponsive pour petits écrans */
+@media (max-width: 768px) {
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .page-item {
+    margin-bottom: 0.5rem; /* Espacement entre les éléments */
+  }
+}
+
+/* NAV BAR PARTY */
+.navbar-custom{
+  box-shadow: none;
+  /* box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px; */
+
+}
+
+.nav-link-home{
+  color:#6b95b7;
+  font-weight: bold;
+}
+.fa-search,.fa-user{
+  color: #6b95b7;
+}
+.navbar-custom , .nav-link{
+  color: #6b95b7;
+}
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding-top: 1%;
+    padding-bottom: 3%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  }
+
+ 
+  .navbar {
+    background-color: #f8f9fa; /* Ensure navbar background color */
+  }
+
+  
+   .carousel-category {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+} 
+   
+
+
+.carousel-categorie {
+    position: relative;
+    overflow: hidden;
+    width: 80%;
+    max-width: 1000px;
+}
+.carousel-track-container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+  
+}
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+.carousel-card {
+    /* flex: 0 0 25%;
+    box-sizing: border-box;
+    margin: 0 10px;
+    padding: 20px;
+    text-align: center; */
+}
+.custom-outline-button {
+  /* border-color: #3f3f69; */
+  color: #3f3f69;
+}
+
+.custom-outline-button:hover {
+  background-color: #3f3f69;
+  color: white;
+  transition: 1s;
+}
+
+/* END NAVBAR PARTY */
+
+/* PRODUCT DETAIL PARTY  */
+.product-title,.product-property{
+  color: #3f3f69;
+}
+    .product-image-detail{
+      height: 449px; /* Ajustez cette hauteur selon vos besoins */
+      object-fit: cover;
+      object-position: center;
+      border-radius: 4%;
+      width: 100%;
+  
+    }
+    .badge{
+      background-color: #3f3f69;
+    }
+    .produit-similair{
+      height: 250px; /* Ajustez cette hauteur selon vos besoins */
+    object-fit: cover;
+    object-position: center;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      padding: 0;
+      margin: 0;
+  }
+  
+  iframe {
+      width: 100%;
+      height: 70%;
+      border: none;
+  }
+  /* produit similaire  */
+  .product-card img {
+    width: 100%;
+    height: 200px; /* Définir une hauteur fixe pour les images */
+    object-fit: cover; /* L'image sera coupée pour remplir l'espace tout en conservant son ratio d'aspect */
+}
+  
+  /* Card styling */
+  .card {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card img {
+    object-fit: cover;
+}
+
+.product-title {
+    margin-bottom: 20px;
+}
+
+.produit-similair {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .order-md-1 {
+        order: 1;
+    }
+
+    .order-md-2 {
+        order: 2;
+    }
+
+    .order-md-3 {
+        order: 3;
+    }
+}
+
+
+    /* social share  */
+  .social-buttons-container .btn-circle {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px; /* Align the icon vertically */
+    margin-right: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration:none;
+}
+
+.btn-circle i {
+    margin: 0;
+    padding: 0;
+}
+/* END PRODUCT DETAIL PARTY  */
+
+/* CONTACT PARTY  */
+#intro-example {
+  height: 210px;
+}
+.s{
+  color: red;
+}
+.form-control {
+  height: 50px; /* Ajustez la hauteur des champs de saisie ici */
+}
+textarea.form-control {
+  height: 150px; /* Ajustez la hauteur du textarea ici */
+}
+.container-contact{
+margin-bottom:10%;
+margin-top: 7%;
+}
+.btn-wide {
+width: 100%; /* Vous pouvez ajuster ce pourcentage selon vos besoins */
+}
+.map-contact{
+  height: 323px;
+  width: 100%;
+ border-radius: 2%;
+ box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.fa-phone-alt,.fa-envelope,.fa-map-marker-alt{
+  color: #7db7d6;
+}
+.contact-info{
+  color: #3f3f69;
+}
+/* END CONTACT PARTY  */
+
+/* SCROLLAB CATEGORY START  */
+
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajuste la taille de l'image sans déformation */
+    display: block;
+}
+
+.image-wrapper h5 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour le titre */
+    color: #fff;
+}
+.img-category-gallery{
+ height: 18rem; 
+}
+/* .scroll-container {
+  overflow: auto;
+  white-space: nowrap;
+  padding: 10px;
+} */
+
+/* END SCROLLAB CATEGORY START  */
+
+
+/* FOOTER PARTY  */
+#newsletter input[type="email"] {
+  max-width: 200px;
+  border-radius: 0;
+}
+
+#newsletter button {
+  border-radius: 0;
+}
+
+.footer{
+line-height: 35px;
+/* color: rgba(255, 255, 255, .5); */
+transition: 0.5s;
+/* color: var(--bs-secondary) !important; */
+/* background-color: hwb(180 2% 47%); */
+background-color: hwb(180 2% 83% / 0.877);
+
+}
+.icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Cercle */
+  background-color: #333; /* Couleur de fond initiale du footer */
+  color: white; /* Couleur initiale des icônes */
+  margin: 10px;
+  transition: background-color 0.3s, color 0.3s; /* Transition douce */
+  text-decoration: none; /* Enlever le soulignement */
+}
+
+/* Appliquer le style de hover aux éléments descendants */
+.icon-circle:hover {
+  background-color: #007bff; /* Couleur de fond bleu */
+  color: white; /* Couleur du texte blanche */
+}
+
+.icon-circle:hover i {
+  color: white; /* Couleur de l'icône blanche */
+}
+
+.footer-icon a {
+  text-decoration: none;
+}
+.services li{
+  list-style: none;
+}
+
+/* END FOOTER PARTY  */
+/* ABOUT PARTY */
+
+  /* Mission Section */
+  .c-misucdas {
+    background-color: #444;
+    padding: 50px 0;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.count-area-content {
+    background-color: #555;
+    padding: 30px;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.count-area-content .icon-container {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #00aaff;
+}
+
+.count-digit {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.count-title {
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    color: #ddd;
+}
+
+.design-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.design-container .line {
+  width: 20px;
+  height: 2px;
+  background-color: #3f3f69;
+  margin: 0 10px;
+}
+
+.design-container .circle {
+  width: 20px;
+  height: 20px;
+  background-color: #3f3f69;
+  border-radius: 50%;
+}
+
+.animated-quote {
+  animation: fadeIn 3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 15px; /* Arrondir les coins */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre légère */
+}
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 15px; /* Arrondir les coins */
+  object-fit: cover; /* S'assure que la vidéo couvre tout le conteneur */
+}
+
+@media (min-width: 768px) {
+  .video-container video {
+      height: 415px; /* Ajuster la hauteur sur les écrans moyens et plus grands */
+  }
+}
+
+/* Styling for social buttons container */
+.social-buttons-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px; /* space between buttons */
+    justify-content: center; /* center the buttons */
+    align-items: center;
+    margin-bottom: 20px;
+    overflow-x: auto; /* allows scrolling if content overflows */
+}
+
+/* Styling for individual social buttons */
+.social-buttons-container .btn {
+    flex: 1 1 auto; /* allow buttons to shrink and grow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px; /* ensure buttons don't shrink too much */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .social-buttons-container .btn {
+        font-size: 14px; /* reduce font size on small screens */
+        padding: 0.5rem 0.75rem; /* adjust padding for smaller screens */
+    }
+}
+
+
+/* END ABOUT PARTY  */

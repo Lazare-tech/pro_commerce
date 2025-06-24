@@ -1,0 +1,107 @@
+/* navbar  */
+/* La navbar devient fixe en haut uniquement sur les petits écrans */
+@media (max-width: 521px) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1030; /* Assure que la navbar reste au-dessus des autres éléments */
+    }
+    
+    /* Compense le décalage des autres éléments à cause de la navbar fixe */
+    body {
+        padding-top: 56px; /* Ajuster en fonction de la hauteur de votre navbar */
+    }
+}
+
+/* Inside your custom.css */
+@media (max-width: 521px) {
+    #carouselBasicExample {
+      display: none;
+    }
+  }
+/* Center search bar on mobile screens */
+@media (max-width: 521px) {
+    .navbar {
+      flex-direction: column;
+    }
+  
+    /* Ensure search bar aligns nicely */
+    .input-group {
+      width: 90%;
+      max-width: 300px;
+      margin: auto;
+    }
+    .filter{
+        display: none;
+    }
+    .carousel-category-button{
+        display: none;
+    }
+    .carousel-container .carousel-item {
+        flex: 1 1 45% !important; /* Increase width for mobile screens to prevent elongation */
+        max-width: 100% !important; /* Ensure cards use available width */
+        
+    }
+    .carousel-item img {
+        width: 121px !important;
+        height: 90px !important;
+    
+        object-fit: cover !important;
+    
+      }
+    #products-section{
+        padding-top: 19px !important;
+    }
+    /* detailproduit  */
+    /* .product-image-detail {
+        width: 100vw !important;
+        height: auto;
+    }
+    .product-image-detail-section{
+        margin: 0px !important;
+        padding: 0px;
+        
+        
+    } */
+
+    /* Cacher la barre de navigation en haut */
+   
+   
+  }
+/* filter mobile phone  */
+/* Styles pour la version mobile */
+.search-filter-container-mobile {
+    padding: 1rem;
+    background-color: #f8f9fa;
+  }
+  
+  .search-form-mobile .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .modal-backdrop {
+    display: none !important;
+}
+
+  .search-input-mobile,
+  .search-select-mobile {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+  
+  /* Cache la barre de recherche par défaut sur mobile */
+  @media (max-width: 768px) {
+    .search-bar { display: none; }
+  }
+  
+  .carou .carousel-item img {
+    width: 100%;
+    height: 13rem;
+
+    object-fit: cover;
+
+  }
+    
+    

@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Produits par Sous-Catégorie{% endblock title %}
+
+{% block content %}
+
+<section class="container-fluid px-5 pt-5">
+    <div class="col-3">
+        <div class="bg-light ps-2 py-3 rounded d-flex justify-content-between mb-4">
+          <label for="ville">Ville:</label>
+          <form method="GET" action="{% url 'pro_commerce:products_by_subcategory' subcategory.slug %}">
+            <select id="ville" name="ville" class="border-0 form-select-sm bg-light me-3" onchange="this.form.submit()">
+              <option value="">Choisir une ville</option>
+              <option value="Bobo-Dioulasso" {% if city == "Bobo-Dioulasso" %}selected{% endif %}>Bobo-Dioulasso</option>
+              <option value="Ouagadougou" {% if city == "Ouagadougou" %}selected{% endif %}>Ouagadougou</option>
+              <option value="Banfora" {% if city == "Banfora" %}selected{% endif %}>Banfora</option>
+              <option value="Kaya" {% if city == "Kaya" %}selected{% endif %}>Kaya</option>
+            </select>
+            <!-- Include the search term as a hidden input to combine both filters -->
+            {% comment %} <input type="hidden" name="search" value="{{ search_query }}"> {% endcomment %}
+          </form>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="products"> 
+        <div class="container-fluid py-1 px-5">
+          <div class="row" id="products-list">
+            {% for product in products %}
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card h-100 product-card">
+                <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+                  <img src="{{ product.photo.url }}" class="w-100" alt="{{ product.nom }}" />
+                  <a href="{% url 'pro_commerce:product_detail' product.id %}">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <a href="{% url 'pro_commerce:product_detail' product.id %}" class="text-reset text-decoration-none">
+                      <h6 class="card-title mb-3 text-muted">{{ product.nom }}</h5>
+                  </a>
+                 
+                  <div class="rating-star">
+                    <span>
+                      <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 				1 %}-half-o {% endif %}"
+                        aria-hidden="true"></i>
+                      <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 				2 %}-half-o {% endif %}"
+                        aria-hidden="true"></i>
+                      <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 				3 %}-half-o {% endif %}"
+                        aria-hidden="true"></i>
+                      <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 				4 %}-half-o {% endif %}"
+                        aria-hidden="true"></i>
+                      <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 				5 %}-half-o {% endif %}"
+                        aria-hidden="true"></i>
+                      <span>{{ product.countReview }} reviews</span>
+                    </span>
+                  </div>
+                  
+                  <div class="d-flex align-items-center mb-3 pt-1">
+                    {% comment %} <p class="card-text mb-0 text-muted">Prix</p> {% endcomment %}
+                    <h6 class="mb-0 text-muted">{{ product.prix }} FCFA</h6>
+                </div>
+                  <div class="d-flex justify-content-between align-items-center mt-auto">
+                      <a href="{% url 'pro_commerce:product_detail' product.id %}" class="rounded-pill px-3 text-primary">
+                          <button class="btn btn-outline-warning">Voir plus</button></a>
+                        <div class="icon-group">
+                        <i class="{% if product.id in favorite_products %}fas{% else %}far{% endif %} fa-heart fa-1x mx-2 text-danger" onclick="toggleFavorite({{ product.id }}, this)" data-mdb-toggle="popover" data-mdb-content="Ajoutez ce produit à vos favoris" style="cursor: pointer;"></i>
+                      </div>
+                    </div>
+              </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+      <!-- Pagination -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    <!-- First Page Link -->
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page=1" aria-label="First">
+        <span aria-hidden="true">&laquo; first</span>
+      </a>
+    </li>
+    <!-- Previous Page Link -->
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}#products" aria-label="Previous">
+        <span aria-hidden="true">previous</span>
+      </a>
+    </li>
+    {% else %}
+    <!-- Disabled First and Previous Links -->
+    <li class="page-item disabled">
+      <span class="page-link">&laquo; first</span>
+    </li>
+    <li class="page-item disabled">
+      <span class="page-link">previous</span>
+    </li>
+    {% endif %}
+
+    <!-- Current Page Indicator -->
+    <li class="page-item active">
+      <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+    </li>
+
+    <!-- Next Page Link -->
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}#products" aria-label="Next">
+        <span aria-hidden="true">next</span>
+      </a>
+    </li>
+    <!-- Last Page Link -->
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}#products" aria-label="Last">
+        <span aria-hidden="true">last &raquo;</span>
+      </a>
+    </li>
+    {% else %}
+    <!-- Disabled Next and Last Links -->
+    <li class="page-item disabled">
+      <span class="page-link">next</span>
+    </li>
+    <li class="page-item disabled">
+      <span class="page-link">last &raquo;</span>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+      
+      {% endblock %}

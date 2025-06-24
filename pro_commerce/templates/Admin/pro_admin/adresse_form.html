@@ -1,0 +1,68 @@
+{% extends "Admin/base.html" %}
+
+{% block main %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>Ajouter une nouvelle adresse</h5>
+        </div>
+        <div class="card-body">
+          <form method="post" action="{% url 'pro_commerce:create_adresse' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Ville Field -->
+            <div class="mb-3">
+              <label for="{{ form.ville.id_for_label }}" class="form-label">Ville</label>
+              {{ form.ville }}
+              {% if form.ville.errors %}
+                <div class="text-danger">{{ form.ville.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <!-- Quartier Field -->
+            <div class="mb-3">
+              <label for="{{ form.quartier.id_for_label }}" class="form-label">Quartier</label>
+              {{ form.quartier }}
+              {% if form.quartier.errors %}
+                <div class="text-danger">{{ form.quartier.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <!-- Repere Field -->
+            <div class="mb-3">
+              <label for="{{ form.repere.id_for_label }}" class="form-label">Point de référence</label>
+              {{ form.repere }}
+              {% if form.repere.errors %}
+                <div class="text-danger">{{ form.repere.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <!-- Contact Field -->
+            <div class="mb-3">
+              <label for="{{ form.contact.id_for_label }}" class="form-label">Numéro de téléphone</label>
+              {{ form.contact }}
+              {% if form.contact.errors %}
+                <div class="text-danger">{{ form.contact.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <!-- Produit Field -->
+            <div class="mb-3">
+              <label for="{{ form.produit.id_for_label }}" class="form-label">Produit</label>
+              {{ form.produit }}
+              {% if form.produit.errors %}
+                <div class="text-danger">{{ form.produit.errors }}</div>
+              {% endif %}
+            </div>
+            
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}

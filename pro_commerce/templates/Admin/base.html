@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title> {% block title %}Admin Dashboard{% endblock %}</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB -->
+  <link href="{% static 'css/mdb.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css"/>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
+    integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+    crossorigin="anonymous"></script>
+
+  <!-- Custom styles -->
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .user-circle {
+      width: 40px;
+      height: 40px;
+      background-color: #4e73df;
+      color: #fff;
+      border-radius: 50%;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #sidebarMenu {
+      background-color: #343a40;
+    }
+
+    .sidebar .list-group-item {
+      color: #ddd;
+      background-color: transparent;
+      border: none;
+      transition: all 0.3s;
+    }
+
+    .sidebar .list-group-item:hover {
+      background-color: #495057;
+      color: #fff;
+    }
+
+    .sidebar .list-group-item.active {
+      background-color: #4e73df;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      color: #4e73df;
+    }
+
+    .card {
+      border-radius: 0.75rem;
+      box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    }
+
+    .card .card-body {
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #6c757d;
+    }
+
+    .card i {
+      opacity: 0.7;
+    }
+
+    .navbar .nav-link {
+      color: #4e73df;
+      font-weight: 500;
+    }
+
+    .navbar .nav-link:hover {
+      color: #2e59d9;
+    }
+    .bg-admin{
+      background-color: #00353F;
+    }
+    /* ADMIN stat  */
+ /* @media (max-width:945px){
+  .adm{
+    background-color: red !important;
+  }
+  .stat-icone{
+    font-size: 1rem !important;
+  }
+  .stat-title{
+    font-size:9px ! important; 
+    font-weight:bold;
+  }
+  
+} */
+
+/* END ADMIN STAT  */
+
+  </style>
+</head>
+
+<body>
+  <!--Main Navigation-->
+  <header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-dark">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a href="#" class="list-group-item list-group-item-action py-2 active mb-3" data-mdb-ripple-init aria-current="true">
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+          </a>
+
+          <a href="{% url 'compte:profile' %}" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init>
+            <i class="fas fa-user fa-fw me-3"></i><span>Profile</span></a>
+
+          <a href="{% url 'pro_commerce:dashboard' %}#produit" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init>
+            <i class="fas fa-store fa-fw me-3"></i><span>Produits</span></a>
+
+          <a href="{% url 'pro_commerce:dashboard' %}#adresse" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init>
+            <i class="fas fa-location-dot fa-fw me-3"></i><span>Addresses</span>
+          </a>
+
+          <a href="#produit-annonce" class="list-group-item list-group-item-action py-2" data-mdb-ripple-init>
+            <i class="fas fa-bullhorn fa-fw me-3"></i><span>Mes Annonces</span>
+          </a>
+          
+          <a href="{% url 'compte:logout' %}" class="btn btn-outline-danger mt-5" data-mdb-ripple-init>
+            <i class="fas fa-bullhorn fa-user me-3"></i><span>Deconnexion</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Navbar -->
+    <nav id="admin-navbar" class="navbar navbar-expand-lg navbar-dark bg-admin fixed-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+    
+        <!-- Brand - Accueil -->
+        <a class="navbar-brand text-light me-auto px-5" href="{% url 'pro_commerce:homepage' %}">
+          Accueil
+        </a>
+    
+        <!-- Right links -->
+        <div class="d-flex align-items-center">
+          {% if user.is_authenticated %}
+          <ul class="navbar-nav ms-auto d-flex flex-row align-items-center">
+            <!-- Admin Home Link -->
+            <li class="nav-item">
+              <a class="nav-link text-light" href="{% url 'pro_commerce:homepage' %}">Dashboard Admin</a>
+            </li>
+            <!-- Avatar with user initial -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#" id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                <div class="user-circle me-2 bg-light text-dark rounded-circle d-flex justify-content-center align-items-center" style="width: 35px; height: 35px;">
+                  {{ user.username|slice:":2" }}
+                </div>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="{% url 'compte:profile' %}">Mon Profil</a></li>
+                <li><a class="dropdown-item" href="{% url 'compte:logout' %}">Déconnexion</a></li>
+              </ul>
+            </li>
+          </ul>
+          {% else %}
+          <a href="{% url 'compte:login' %}" class="d-inline-block text-light" aria-expanded="false">
+            <i class="fas fa-user fa-2x mx-2"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    
+    <!-- Navbar -->
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+    <div class="container pt-4">
+      <section>
+        <div class="row">
+          <div class="col-xl-3 col-sm-3 col-12 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class="fas fa-pencil-alt text-info fa-3x stat-icone"></i>
+                  </div>
+                  <div class="text-end">
+                    <h3>8</h3>
+                    <p class="mb-0 stat-title">Annonces</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-3 col-12 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center stat">
+                    <i class="fas fa-warehouse text-warning fa-3x stat-icone"></i>
+                  </div>
+                  <div class="text-end">
+                    <h3>5</h3>
+                    <p class="mb-0 stat-title">Product Categories</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-3 col-12 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class="fas fa-shop text-success fa-3x stat-icone"></i>
+                  </div>
+                  <div class="text-end">
+                    <h3>{{ products.count }}</h3>
+                    <p class="mb-0 stat-title">Produits en vente</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-3 col-12 mb-4">
+            <div class="card h-100">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class="fas fa-phone text-danger fa-3x stat-icone"></i>
+                  </div>
+                  <div class="text-end">
+                    <h6>Addresses</h6>
+                    {% for addresses in addresses %}
+                    <h6 class="mb-0 text-muted">{{ addresses.contact }}</h6>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {% block main %}
+
+      {% endblock main %}
+    </div>
+  </main>
+  <!--Main layout-->
+
+  <!-- MDB -->
+  <script type="text/javascript" src="{% static '/js/mdb.umd.min.js' %}"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="{% static '/js/admin.js' %}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Automatically close the alert after 5 seconds
+      setTimeout(function () {
+        var alertMessage = document.getElementById("alertMessage");
+        if (alertMessage) {
+          alertMessage.style.transition = "opacity 1s ease";
+          alertMessage.style.opacity = "0";
+
+          setTimeout(function () {
+            alertMessage.remove(); // Removes the alert from the DOM after fade out
+          }, 1000); // Match this time with the fade-out time
+        }
+      }, 5000); // 5 seconds
+    });
+  </script>
+</body>
+
+</html>

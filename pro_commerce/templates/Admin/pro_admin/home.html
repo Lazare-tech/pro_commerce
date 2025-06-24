@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+
+<title>{% block title %} home admin{% endblock %}</title>
+ {% block body %}
+<div class="container-fluid d-flex flex-row mb-3 bg-light bg-opacity-50 bg-gradient">
+  <button type="button" class="me-2 btn btn-lg  btn-light btn-gradient bg-opacity-40 btn-block" data-mdb-ripple-init >
+         <span class=" d-inline  badge badge-light mb-2">
+          <i class=" text-danger fas fa-gem fa-3x"></i>
+      </span>
+
+      <h1 class="d-inline p-2 ">9500</h1>
+      <span class="d-block ms-5 ">produits</span>
+
+  <span class="visually-hidden">unread messages</span>
+  </button>
+
+
+
+  <button type="button" class="me-2 btn btn-lg  btn-light btn-block" data-mdb-ripple-init >
+
+    <span class=" d-inline  badge badge-light mb-2">
+          <i class=" text-danger fas fa-bars-staggered fa-3x"></i>
+      </span>
+
+
+
+      <h1 class="d-inline p-2  ">9500</h1>
+      <span class="d-block p-2 ">Catégories de produits</span>
+
+  <span class="visually-hidden">unread messages</span>
+</button>
+
+  <button type="button" class="me-2 btn btn-lg  btn-light btn-block" data-mdb-ripple-init >
+
+
+      <span class=" d-inline badge badge-light mb-2">
+          <i class=" text-danger fas fa-bullhorn fa-3x"></i>
+      </span>
+
+      <h1 class="d-inline p-2  ">9500</h1>
+      <span class="d-block p-2 ">Annonces</span>
+
+  <span class="visually-hidden">unread messages</span>
+</button>
+
+  </div>
+</div>
+
+{% endblock body %}

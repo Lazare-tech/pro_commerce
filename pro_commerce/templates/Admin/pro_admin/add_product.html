@@ -1,0 +1,127 @@
+{% extends "Admin/base.html" %}
+
+{% block main %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-header">
+          <h5>Nouvel Article</h5>
+        </div>
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                {{ form.photo.label_tag }}
+                {{ form.photo }}
+                <img id="main-image-preview" src="#" alt="Aperçu de l'image principale" style="display:none; width: 100%; margin-top: 10px;">
+              </div>
+              <div class="col-md-6">
+                <button type="button" class="btn btn-secondary btn-sm mt-2" id="add-secondary-image">Ajouter une image secondaire</button>
+                
+                <div class="mt-3 d-flex flex-wrap" id="secondary-images-container"></div>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                {{ form.nom.label_tag }}
+                {{ form.nom }}
+              </div>
+              <div class="col-md-6">
+                {{ form.ville.label_tag }}
+                {{ form.ville }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+              </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                {{ form.prix.label_tag }}
+                {{ form.prix }}
+              </div>
+              <div class="col-md-6">
+                {{ form.stock.label_tag }}
+                {{ form.stock }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                {{ form.categorie.label_tag }}
+                {{ form.categorie }}
+              </div>
+              <div class="col-md-6">
+                {{ form.sous_categorie.label_tag }}
+                {{ form.sous_categorie }}
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              {{ form.adresse.label_tag }}
+              {{ form.adresse }}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-3">Enregistrer</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Affichage de l'aperçu de l'image principale
+  document.getElementById('id_photo').onchange = function(event) {
+    const [file] = event.target.files;
+    if (file) {
+      const preview = document.getElementById('main-image-preview');
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = 'block';
+    }
+  };
+
+  // Fonction pour ajouter une image secondaire
+  document.getElementById('add-secondary-image').addEventListener('click', function() {
+    const secondaryImagesContainer = document.getElementById('secondary-images-container');
+
+    // Créer un nouveau div pour l'image secondaire et le champ input
+    const newImageDiv = document.createElement('div');
+    newImageDiv.className = 'secondary-image-wrapper me-2 mb-2 position-relative'; // Ajout de margin pour l'espacement
+    newImageDiv.style.width = '100px';  // Largeur fixe pour l'image
+    newImageDiv.style.height = '100px'; // Hauteur fixe pour l'image
+    newImageDiv.style.overflow = 'hidden'; // Masquer le dépassement si l'image est plus grande
+    newImageDiv.innerHTML = `
+      <input type="file" name="secondary_images" class="form-control secondary-image-input" accept="image/*" style="display: block;">
+      <img src="#" alt="Aperçu de l'image secondaire" style="display:none; width: 100px; height: 100px; object-fit: cover; margin-top: 5px; border-radius: 10%;">
+      <button type="button" class="btn btn-danger btn-sm position-absolute" style="top: 0; right: 0;">&times;</button>
+    `;
+    secondaryImagesContainer.appendChild(newImageDiv);
+
+    // Récupérer l'input et l'image à prévisualiser
+    const fileInput = newImageDiv.querySelector('input[type="file"]');
+    const previewImage = newImageDiv.querySelector('img');
+
+    // Quand on choisit une image, cacher le champ "Choisir un fichier" et afficher l'aperçu
+    fileInput.onchange = function(event) {
+      const [file] = event.target.files;
+      if (file) {
+        previewImage.src = URL.createObjectURL(file);
+        previewImage.style.display = 'block'; // Montrer l'image
+        fileInput.style.display = 'none'; // Cacher l'input une fois l'image choisie
+      }
+    };
+
+    // Supprimer l'image et réafficher le champ "Choisir un fichier"
+    newImageDiv.querySelector('button').onclick = function() {
+      newImageDiv.remove(); // Retirer le div entier de l'image secondaire
+    };
+  });
+</script>
+{% endblock main %}

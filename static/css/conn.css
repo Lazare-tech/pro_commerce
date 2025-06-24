@@ -1,0 +1,12 @@
+.navbar-nav {
+    margin: 0 auto;
+  }
+  .navbar-brand {
+    margin-right: 50px;
+  }
+  .navbar-toggler {
+    margin-left: auto;
+  }
+  .navbar-nav + .d-flex {
+    margin-left: 50px; /* Increase this value for more space */
+  }

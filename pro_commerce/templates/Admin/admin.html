@@ -1,0 +1,224 @@
+
+{% extends "Admin/base.html" %}
+
+<title>{% block title %} Admin page {% endblock %}</title>
+{% block main %}
+
+<section class="mb-4">
+  <div class="card">
+    <div class="card-header text-center py-3">
+      <h5 class="mb-0 text-center" id="produit">
+        <strong>Inventaire des produits</strong>
+      </h5>
+      {% if messages %}
+      <div id="alertMessage">
+          {% for message in messages %}
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      </div>
+  {% endif %}
+      <div class="d-flex justify-content-end p-3">
+        <a href="{% url 'pro_commerce:add_product' %}" class="btn btn-outline-success">
+          <i class="fas fa-plus fa-fw"></i><span>Ajouter un article</span>
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      {% if products %}
+        <div class="table-responsive">
+          <table class="table table-hover text-nowrap">
+            <thead>
+              <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Prix unitaire</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product in products %}
+                <tr>
+                  <th scope="row">{{ product.nom }}</th>
+                  <td>{{ product.categorie }}</td>
+                  <td>{{ product.stock }}</td>
+                  <td>{{ product.prix }}</td>
+                  <td>
+                    {% comment %} <a href="{% url 'pro_commerce:detail' product.id %}" class="btn" data-mdb-ripple-init>
+                      <i class="fas fa-eye text-success fa-2x"></i>
+                    </a> {% endcomment %}
+                    
+                <!-- Trigger button -->
+                <a href="#" class="btn" data-mdb-toggle="modal" data-mdb-target="#modalDelete{{ product.id }}">
+                  <i class="fas fa-trash text-danger fa-2x"></i>
+                </a>
+                    <a href="{% url 'pro_commerce:update_product' product.id %}" class="btn" data-mdb-ripple-init>
+                      <i class="fas fa-pencil text-primary fa-2x"></i>
+                    </a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-center">Aucun produit trouvé. <a href="{% url 'pro_commerce:add_product' %}">Ajoutez un produit.</a></p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+    <!-- Modal de confirmation de suppression -->
+   
+   
+<!-- Modal -->
+{% for product in products %}
+<div class="modal fade" id="modalDelete{{ product.id }}" tabindex="-1" aria-labelledby="deleteLabel{{ product.id }}" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header bg-danger">
+              <h5 class="modal-title text-white" id="deleteLabel{{ product.id }}">Confirmer la suppression</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              Êtes-vous sûr de vouloir supprimer ce produit ?
+          </div>
+          <div class="modal-footer">
+              <form action="{% url 'pro_commerce:delete_product' product.id %}" method="POST">
+                  {% csrf_token %}
+                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annuler</button>
+                  <button type="submit" class="btn btn-danger">Supprimer</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+{% endfor %}
+
+<!--mes annonces-->
+
+<section class="mb-4" id="produit-annonce">
+        <div class="card">
+
+          <div class="card-header text-center py-3">
+
+            <h5 class="mb-0 text-center text-muted">
+              Inventaire des produits d'annonce
+            </h5>
+                <div class="d-flex justify-content-end p-3">
+            <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-success" data-mdb-modal-init data-mdb-target="#article">
+              <i class="fas fa-plus fa-fw"></i><span>Ajouter une annonce</span>
+            </button>
+          </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Prix unitaire</th>
+                    <th scope="col">Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Chemise</th>
+                    <td>Vetements</td>
+                    <td>10</td>
+                    <td>10 000</td>
+                    <td >
+                        <a data-mdb-tooltip-init title="voir les détails" href=""  class="btn"  data-mdb-ripple-init>
+                            <i class="fas fa-eye text-success fa-2x">
+                            </i>
+                        </a>
+
+                          <a data-mdb-tooltip-init title="supprimer" href=""  data-mdb-ripple-init class="btn" data-mdb-modal-init data-mdb-target="#modalSuprime"  >
+
+                            <i class="fas fa-trash text-danger fa-2x">
+                            </i>
+                          </a>
+                      <a data-mdb-tooltip-init title="Modifier" href="" class="btn "  data-mdb-ripple-init>
+                        <i class="fas fa-pencil text-primary fa-2x">
+                        </i>
+                      </a>
+                    </td>
+
+                  </tr>
+                
+              
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+</section>
+<!--end annonce-->
+<div class="container mt-5">
+
+      <h4 class="text-center text-muted">Vos Adresses</h4>
+    
+      {% if addresses %}
+      <div class="row">
+        {% for address in addresses %}
+
+        <div class="col-lg-6 col-md-6">
+          <div class="card mb-3">
+            <div class="card-body">
+              <h2 class="card-title"><i class="fas fa-location-dot fa-2x text-danger px-3"></i> Adresse</h2>
+              <ul class="list-group list-group-light">
+                <li class="list-group-item px-3"><i class="fas fa-globe fa-fw text-success px-2"></i><strong class="px-2">VILLE :</strong><span>{{ address.ville }}</span></li>
+                <li class="list-group-item px-3"><i class="fas fa-layer-group fa-fw text-success px-2"></i><strong class="px-2">QUARTIER :</strong><span>{{ address.quartier }}</span></li>
+                <li class="list-group-item px-3"><i class="fas fa-flag fa-fw text-success px-2"></i><strong class="px-2">POINT DE RÉFÉRENCE :</strong><span>{{ address.repere }}</span></li>
+                <li class="list-group-item px-3"><i class="fas fa-phone fa-fw text-success px-2"></i><strong class="px-2">TÉLÉPHONE :</strong><span>{{ address.contact }}</span></li>
+              </ul>
+              <div class="btn-group shadow-0" role="group" aria-label="Basic example">
+                <a href="{% url 'pro_commerce:update_adresse' address.id %}" class="btn btn-primary me-2">Mettre à jour</a>
+                <button type="button" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#deleteModal{{ address.id }}">Supprimer</button>
+              </div>
+            </div>
+          </div>
+          <!-- Delete Confirmation Modal -->
+          <div class="modal fade" id="deleteModal{{ address.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ address.id }}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-danger">
+                  <h5 class="modal-title text-white" id="deleteModalLabel{{ address.id }}">Confirmation de suppression</h5>
+                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+
+                </div>
+                <div class="modal-body">
+                  Êtes-vous sûr de vouloir supprimer cette adresse ?
+                </div>
+               
+                <div class="modal-footer">
+                  <form action="{% url 'pro_commerce:delete_adresse' address.id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annuler</button>
+                      <button type="submit" class="btn btn-danger">Supprimer</button>
+                  </form>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      {% else %}
+
+        <p class="text-center">Aucune adresse trouvée. <a href="{% url 'pro_commerce:create_adresse' %}">Ajouter une nouvelle adresse</a>.</p>
+      </div>
+
+      {% endif %}
+  
+</div>
+
+
+
+{% endblock main %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+<title>{% block title %}A propos{% endblock title %}</title>
+{% block content %}
+
+  <!-- Background image -->
+  <div
+    id="intro-example"
+    class="p-5 text-center bg-image"
+    style="background-image: url('assets/images/contact.jpg');"
+  >
+    <div class="mask" style="background-color: rgba(0, 0, 0, 0.7);">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="text-white">
+          <h1 class="mb-3 fw-bold">A Propos</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fun section with design -->
+  <section class="container p-5 text-center fun-section">
+    <div class="row">
+      <div class="col-12">
+        <div class="design-container">
+          <span class="line"></span>
+          <span class="circle"></span>
+          <span class="line"></span>
+        </div>
+       
+      </div>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="container">
+    <div class="row">
+      <!-- Video Column -->
+      <div class="col-12 col-md-6 mb-4 mb-md-0">
+        <div class="video-container">
+          <video controls class="video rounded" width="100%">
+            <source src="assets/images/i.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la balise vidéo.
+          </video>
+        </div>
+      </div>
+      <!-- Text Column -->
+      <div class="col-12 col-md-6">
+        <p>
+          Eiusmod laborum incididunt ullamco ullamco sit ad eu commodo velit. Duis aute reprehenderit dolor sint anim elit duis aute sint. Lorem voluptate excepteur id pariatur qui. Culpa excepteur minim quis sunt reprehenderit ea nisi nostrud deserunt nisi magna officia cillum. Amet sit ipsum laborum aliquip aute tempor tempor eiusmod culpa minim tempor labore. Aliqua non occaecat eu aute nostrud commodo ad sint id mollit labore sit.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Section start mission -->
+  <section class="c-misucdas mb-5 mt-4">
+    <div class="container px-4 mvob" id="featured-3">
+      <h2 class="pb-2 border-bottom text-white">Aliquip reprehenderit ad enim elit.</h2>
+      <div class="row g-4 py-4 row-cols-1 row-cols-lg-3">
+        <div class="feature col">
+          <div class="count-area-content text-center">
+            <div class="icon-container">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <div class="count-digit">Objectif</div>
+            <div class="count-title">Succesed Students</div>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
+              sentence and probably just keep going until we run out of words.</p>
+          </div>
+        </div>
+        <div class="feature col">
+          <div class="count-area-content text-center">
+            <div class="icon-container">
+              <i class="fas fa-flag"></i>
+            </div>
+            <div class="count-digit">Mission</div>
+            <div class="count-title">Succesed Students</div>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
+              sentence and probably just keep going until we run out of words.</p>
+          </div>
+        </div>
+        <div class="feature col">
+          <div class="count-area-content text-center">
+            <div class="icon-container">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="count-digit">Vision</div>
+            <div class="count-title">Succesed Students</div>
+            <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another
+              sentence and probably just keep going until we run out of words.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End section mission objectif -->
+
+{% endblock content %}

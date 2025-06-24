@@ -1,0 +1,59 @@
+{% extends "Admin/base.html" %}
+
+<title>{% block title %} Admin page {% endblock %}</title>
+{% block main %}
+<section class="mb-4">
+    <div class="card">
+      <div class="card-header text-center py-3">
+        <h5 class="mb-0 text-center" id="produit">
+          <strong>Inventaire des produits</strong>
+        </h5>
+        <div class="d-flex justify-content-end p-3">
+          <a href="{% url 'pro_commerce:add_product' %}" class="btn btn-outline-success">
+            <i class="fas fa-plus fa-fw"></i><span>Ajouter un article</span>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+        {% if products %}
+          <div class="table-responsive">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Catégorie</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Prix unitaire</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in products %}
+                  <tr>
+                    <th scope="row">{{ product.nom }}</th>
+                    <td>{{ product.categorie }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{{ product.prix }}</td>
+                    <td>
+                      {% comment %} <a href="{% url 'product:detail' product.id %}" class="btn" data-mdb-ripple-init>
+                        <i class="fas fa-eye text-success fa-2x"></i>
+                      </a> {% endcomment %}
+                      <a href="{% url 'pro_commerce:delete_product' product.id %}" class="btn" data-mdb-ripple-init data-mdb-toggle="modal" data-mdb-target="#modalDelete">
+                        <i class="fas fa-trash text-danger fa-2x"></i>
+                      </a>
+                      <a href="{% url 'pro_commerce:update_product' product.id %}" class="btn" data-mdb-ripple-init>
+                        <i class="fas fa-pencil text-primary fa-2x"></i>
+                      </a>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p class="text-center">Aucun produit trouvé. <a href="{% url 'pro_commerce:add_product' %}">Ajoutez un produit.</a></p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+  {% endblock main %}

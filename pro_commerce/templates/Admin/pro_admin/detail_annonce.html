@@ -1,0 +1,71 @@
+
+{% extends "base.html" %}
+
+<title>{% block title %} details annonces {% endblock %}</title>
+
+ {% block body %}
+
+
+<div class="row g-0 bg-body-tertiary position-relative text-center">
+  <div class="col-md-5 mb-md-0 p-md-4">
+    <img
+      src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp"
+      class="w-100"
+      alt="hollywood sign"
+    />
+  </div>
+  <div class="col-md-4 p-3 ps-md-0">
+    <h5 class="mt-0">Columns with stretched link</h5>
+    <p>
+      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante
+      sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+      Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in
+      faucibus.
+    </p>
+     <div class="container "><h5 style="color: green">Contacter le Vendeur</h5>
+        <button type="button" class="btn btn-primary  md-4">Primary</button>
+        <button type="button" class="btn btn-success  md-4">Success</button>
+        <button type="button" class="btn btn-danger ">Danger</button>
+        <button type="button" class="btn btn-warning ">Warning</button>
+        </div>
+     </div>
+</div>
+
+<div  class="row position-relative  bg-primary  w-50 mx-auto border border-5 rounded-pill" >
+  <div class="col-9 text-white text-center">Consulter d'autres articles du meme vendeur!!!!</div>
+</div>
+<div   class="row row-cols-1 row-cols-md-4 g-4 " >
+  <div class="col">
+    <div class="card h-100">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp" class="card-img-top" alt="Skyscrapers"/>
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+          This is a wider card with supporting text below as a natural lead-in to
+          additional content. This content is a little bit longer.
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </div>
+  </div>
+
+     <div class="col">
+    <div class="card h-100">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp" class="card-img-top" alt="Skyscrapers"/>
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">
+          This is a wider card with supporting text below as a natural lead-in to
+          additional content. This content is a little bit longer.
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated 3 mins ago</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+  {% endblock body %}

@@ -1,0 +1,187 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!--font aweson icon link-->
+  {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> {% endcomment %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.3.0/mdb.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="{% static 'fonts/fontawesome/css/all.min.css' %}" type="text/css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!--load static files-->
+  <!--mdn Bootstrap links-->
+  <link href="{% static "css/mdb.min.css" %}" rel="stylesheet">
+  <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+  <link href="{% static "css/style.css" %}" rel="stylesheet">
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css"/>
+
+  <link rel="stylesheet" href="{% static 'css/star.css' %}">
+  <link href="{% static 'fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css"/>
+
+
+  <title> {% block title %}{% endblock title %} </title>
+
+  <script type="text/javascript">
+    /// some script
+    
+    // jquery ready start
+    $(document).ready(function() {
+      // jQuery code
+    
+    });
+    // jquery end
+    </script>
+<style>
+
+  .user-circle {
+    width: 40px;
+    height: 40px;
+    background-color:#3f3f69; /* MDB dark color */
+    color: #fff;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+  
+</style>
+</head>
+
+<body>
+  <header>
+{% block nav %}
+{% include 'pro_commerce/navbar.html' %}
+
+{% endblock nav %}
+
+  </header>
+  <main>
+   
+    
+    {% block content %}
+    {% endblock content %}
+  
+    
+  </main>
+  {% include 'pro_commerce/footer.html' %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+  <!--mdn Bootstrap links-->
+  <script type="text/javascript" src={% static "js/mdb.umd.min.js" %}></script>
+  <script type="text/javascript" src={% static "js/carousel-category.js" %}></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
+
+  <script type="text/javascript"></script>
+  <script type="text/javascript" src={% static "js/style.js" %}></script>
+  <script type="text/javascript" src={% static "js/start.js" %}></script>
+
+
+<script>
+  function toggleFavorite(productId, iconElement) {
+    const csrfTokenElement = document.querySelector('input[name="csrfmiddlewaretoken"]');
+    if (!csrfTokenElement) {
+        alert('CSRF token not found.');
+        return;
+    }
+    const csrfToken = csrfTokenElement.value;
+    const url = /toggle_favorite/${productId}/;
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+    }).then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              iconElement.classList.toggle('fas');
+              iconElement.classList.toggle('far');
+          } else {
+              alert('Error toggling favorite');
+          }
+      }).catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred while toggling favorite.');
+      });
+}
+    
+    
+  </script>
+ 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sélectionner le champ de fichier et l'image
+      const photoInput = document.querySelector('input[type="file"]');
+      const profileImage = document.getElementById('profile-image');
+      
+      // Événement lorsque l'utilisateur sélectionne un fichier
+      photoInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+          // Créer un objet URL pour le fichier sélectionné
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            // Mettre à jour la source de l'image avec l'URL du fichier
+            profileImage.src = e.target.result;
+          };
+          // Lire le fichier en tant qu'URL de données
+          reader.readAsDataURL(file);
+        }
+      });
+    });
+    </script>
+  
+
+    <script>
+      function changeMainImage(element) {
+          // Récupérer l'élément img à l'intérieur de la carte cliquée
+          var imgElement = element.querySelector('img');
+          
+          // Récupérer l'URL de l'image
+          var newImageUrl = imgElement.src;
+          
+          console.log("Nouvelle URL de l'image :", newImageUrl);  // Affiche l'URL dans la console
+  
+          // Mettre à jour l'image principale avec la nouvelle URL
+          if (newImageUrl) {
+              document.getElementById("main-image").src = newImageUrl;
+          } else {
+              console.error("L'URL de l'image est manquante");
+          }
+      }
+  </script>
+    <script>
+        // Utiliser un timeout pour faire disparaître l'alerte après 5 secondes
+        setTimeout(function() {
+          var alert = document.querySelector('.alert');
+          if (alert) {
+              // Ajouter la classe fade-out de MDB pour déclencher l'animation
+              alert.classList.add('fade-out');
+
+              // Utiliser MDB Alert pour masquer l'alerte après l'animation
+              alert.addEventListener('animationend', function() {
+                  var mdbAlert = new mdb.Alert(alert);
+                  mdbAlert.close(); // Fermer l'alerte une fois l'animation terminée
+              });
+          }
+      }, 5000); // Délai de 5 secondes avant de disparaître
+
+  </script>
+
+</body>
+
+</html>

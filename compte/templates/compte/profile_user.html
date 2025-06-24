@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+<title>{% block title %}Profil utilisateur{% endblock %}</title>
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Mon Profil</h5>
+                    <button class="btn btn-sm btn-outline-light">Modifier le Profil</button>
+                </div>
+                <div class="card-body">
+                  <form method="POST" action="{% url 'compte:profile' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- Photo Section at the Top -->
+                   <!-- Photo Section at the Top -->
+<div class="text-center mb-4 position-relative">
+  {% if form.instance.photo %}
+      <!-- Image de profil si elle existe -->
+      <img id="profile-image" src="{{ form.instance.photo.url }}" alt="Image actuelle" class="img-fluid rounded-circle shadow-sm" style="height: 100px; width: 100px;">
+  {% else %}
+      <!-- Icône par défaut si pas de photo -->
+      <div id="profile-image-container" class="default-profile-icon position-relative" style="height: 100px; width: 100px; border-radius: 50%; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center;">
+          <i class="fas fa-camera fa-2x text-muted"></i>
+      </div>
+  {% endif %}
+  
+  <!-- Icône d'édition pour choisir une nouvelle image -->
+  <label for="id_photo" class="edit-icon position-absolute" style="bottom: 0; right: 0;">
+      <i class="fas fa-edit text-primary" style="cursor: pointer; font-size: 18px;"></i>
+  </label>
+  <!-- Champ de formulaire pour télécharger une nouvelle image -->
+  {{ form.photo|add_class:"d-none" }}
+</div>
+
+
+                 
+                        <div class="mb-3">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">Nom</label>
+                            {{ form.username|add_class:"form-control" }}
+                            {% if form.username.errors %}
+                                <div class="text-danger">{{ form.username.errors }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.telephone.id_for_label }}" class="form-label">Numéro de téléphone</label>
+                            {{ form.telephone|add_class:"form-control" }}
+                            {% if form.telephone.errors %}
+                                <div class="text-danger">{{ form.telephone.errors }}</div>
+                            {% endif %}
+                        </div>
+                       
+                   
+                     
+                      <div class="mb-3">
+                        <label for="{{ form.nouveau_mot_de_passe.id_for_label }}" class="form-label">Nouveau mot de passe</label>
+                        {{ form.nouveau_mot_de_passe }}
+                        {% if form.nouveau_mot_de_passe.errors %}
+                            <div class="text-danger">{{ form.nouveau_mot_de_passe.errors }}</div>
+                        {% endif %}
+                    </div>
+                      
+                      <div class="mb-3">
+                          <label for="{{ form.confirmer_mot_de_passe.id_for_label }}" class="form-label">Confirmer le mot de passe</label>
+                          {{ form.confirmer_mot_de_passe }}
+                          {% if form.confirmer_mot_de_passe.errors %}
+                              <div class="text-danger">{{ form.confirmer_mot_de_passe.errors }}</div>
+                          {% endif %}
+                      </div>
+                      
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Supprimer le compte</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmation de suppression de compte -->
+<!-- Modal de confirmation de suppression de compte -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="deleteAccountModalLabel">Confirmer la suppression du compte</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <form method="POST" action="{% url 'compte:delete_account' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Supprimer mon compte</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

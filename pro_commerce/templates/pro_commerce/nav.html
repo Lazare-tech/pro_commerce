@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div id="carouselExampleIndicators" class="carousel slide">
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <!-- Inner -->
+  <div class="carousel-inner">
+    <!-- Slide 1 -->
+    <div class="carousel-item active">
+      <div class="carousel-images-container">
+        <img src="assets/images/coifure/parfum.jpg" class="carousel-image" alt="Chaussure 1" style="top: 10px; left: 10px;">
+        <img src="assets/images/coifure/parfum.jpg" class="carousel-image" alt="Chaussure 2" style="top: 60px; left: 100px;">
+        <img src="/assets/images/coifure/parfum.jpg" class="carousel-image" alt="Chaussure 3" style="top: 120px; left: 200px;">
+        <!-- Add more images with different positions -->
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="carousel-item">
+      <div class="carousel-images-container">
+        <img src="/assets/images/coifure/parfum.jpg" class="carousel-image" alt="Chaussure 3" style="top: 120px; left: 200px;">
+
+        <img src="https://example.com/shoes5.jpg" class="carousel-image" alt="Chaussure 5" style="top: 80px; left: 150px;">
+        <img src="https://example.com/shoes6.jpg" class="carousel-image" alt="Chaussure 6" style="top: 140px; left: 250px;">
+        <!-- Add more images with different positions -->
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="carousel-item">
+      <div class="carousel-images-container">
+        <img src="https://example.com/shoes7.jpg" class="carousel-image" alt="Chaussure 7" style="top: 30px; left: 50px;">
+        <img src="https://example.com/shoes8.jpg" class="carousel-image" alt="Chaussure 8" style="top: 90px; left: 180px;">
+        <img src="https://example.com/shoes9.jpg" class="carousel-image" alt="Chaussure 9" style="top: 150px; left: 270px;">
+        <!-- Add more images with different positions -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+{% endblock content %}

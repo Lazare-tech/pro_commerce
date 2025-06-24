@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Page non trouvée{% endblock title %}
+{% block content %}
+
+<div class="container text-center mt-5 mb-5 pb-5">
+    <h1 class="display-4">404 - Page non trouvée</h1>
+    <p>Nous sommes désolés, mais la page que vous recherchez n'existe pas.</p>
+    <a href="{% url 'pro_commerce:homepage' %}" class="btn btn-primary">Retour à la page d'accueil</a>
+</div>
+
+{% endblock content %}
+ 

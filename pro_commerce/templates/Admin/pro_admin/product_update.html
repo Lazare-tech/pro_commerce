@@ -1,0 +1,151 @@
+{% extends "Admin/base.html" %}
+{% load form_helpers %}
+
+{% block main %}
+<div class="container mt-2">
+    <h4 class="text-center mb-4">Mettre à jour le produit</h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.nom.id_for_label }}" class="form-label text-muted">{{ form.nom.label }}</label>
+                    {{ form.nom|add_class:"form-control" }}
+                    {% if form.nom.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in form.nom.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.ville.id_for_label }}" class="form-label text-muted">{{ form.ville.label }}</label>
+                    {{ form.ville }}
+                    {% if form.ville.errors %}
+                        <div class="text-danger">
+                            {% for error in form.ville.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.photo.id_for_label }}" class="form-label text-muted">{{ form.photo.label }}</label>
+                    {{ form.photo }}
+                    {% if form.photo.errors %}
+                        <div class="text-danger">
+                            {% for error in form.photo.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                {% if form.instance.photo %}
+                    <img src="{{ form.instance.photo.url }}" alt="Image actuelle" class="img-fluid" style="max-width: 400px; height: auto;">
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}" class="form-label text-muted">{{ form.description.label }}</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="text-danger">
+                        {% for error in form.description.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.prix.id_for_label }}" class="form-label text-muted">{{ form.prix.label }}</label>
+                    {{ form.prix }}
+                    {% if form.prix.errors %}
+                        <div class="text-danger">
+                            {% for error in form.prix.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.stock.id_for_label }}" class="form-label text-muted">{{ form.stock.label }}</label>
+                    {{ form.stock }}
+                    {% if form.stock.errors %}
+                        <div class="text-danger">
+                            {% for error in form.stock.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.categorie.id_for_label }}" class="form-label text-muted">{{ form.categorie.label }}</label>
+                    {{ form.categorie }}
+                    {% if form.categorie.errors %}
+                        <div class="text-danger">
+                            {% for error in form.categorie.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="{{ form.sous_categorie.id_for_label }}" class="form-label text-muted">{{ form.sous_categorie.label }}</label>
+                    {{ form.sous_categorie }}
+                    {% if form.sous_categorie.errors %}
+                        <div class="text-danger">
+                            {% for error in form.sous_categorie.errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <div class="form-group">
+                <label for="{{ form.adresse.id_for_label }}" class="form-label text-muted">{{ form.adresse.label }}</label>
+                {{ form.adresse }}
+                {% if form.adresse.errors %}
+                    <div class="text-danger">
+                        {% for error in form.adresse.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+    </form>
+</div>
+{% endblock main %}

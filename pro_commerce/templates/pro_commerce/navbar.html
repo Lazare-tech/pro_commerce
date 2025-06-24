@@ -1,0 +1,167 @@
+<!-- Upper Navbar -->
+<nav class="navbar navbar-expand-lg navbar-info mb-0" style="background-color: #3f3f69; color: white;">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item header-link mx-2">
+            <i class="fas fa-phone-alt"></i> +226 002384293
+          </li>
+          <li class="nav-item header-link">
+            <i class="fas fa-envelope"></i> yelmaniyel@gmail.com
+          </li>
+        </ul>
+        <div class="d-flex align-items-center ms-auto">
+          <a href="#" class="icon-facebook" aria-label="Facebook"><i class="fab fa-facebook fa-2x mx-2 text-white"></i></a>
+          <a href="#" class="icon-whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp fa-2x mx-2 text-white"></i></a>
+          <a href="#" class="icon-twitter" aria-label="Twitter"><i class="fab fa-twitter fa-2x mx-2 text-white"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Main Navbar -->
+  <nav class="navbar bg-white navbar-expand-lg navbar-light navbar-custom mt-0 mb-1 py-4 shadow-4" id="mainNavbar">
+    <div class="container">
+      <a class="navbar-brand me-2" href="https://mdbgo.com/">
+        <h6>CIRI-SARL</h6>
+      </a>
+       <!-- Search Bar for Mobile Only -->
+      <!-- Bouton pour ouvrir le modal de filtre (visible uniquement sur mobile) -->
+<div class="d-flex d-md-none justify-content-center">
+  <div class="text-center">
+      <button type="button" class="btn btn-primary btn-sm" data-mdb-toggle="modal" data-mdb-target="#filterModal">
+          <i class="fas fa-filter"></i> Filtrer les produits
+      </button>
+  </div>
+</div>
+
+<!-- Modal de filtre -->
+<div class="modal fade lmodal" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="filterModalLabel">Filtrer les produits</h5>
+              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- Formulaire de recherche -->
+              <form action="{% url 'pro_commerce:homepage' %}#products-section" method="GET">
+                  <!-- Champ de recherche -->
+                  <div class="mb-3">
+                      <label for="search" class="form-label">Rechercher un produit</label>
+                      <input type="text" name="search" id="search" class="form-control" placeholder="Rechercher...">
+                  </div>
+                  
+                  <!-- Filtre de ville -->
+                  <div class="mb-3">
+                      <label for="city_filter" class="form-label">Sélectionnez une ville</label>
+                      <select id="ville" name="ville" class="form-select search-select-mobile" onchange="this.form.submit()">
+                        <option value="" disabled selected hidden>Choisir une ville</option>
+                        <option value="Bobo-Dioulasso" {% if city == "Bobo-Dioulasso" %}selected{% endif %}>Bobo-Dioulasso</option>
+                        <option value="Ouagadougou" {% if city == "Ouagadougou" %}selected{% endif %}>Ouagadougou</option>
+                        <option value="Banfora" {% if city == "Banfora" %}selected{% endif %}>Banfora</option>
+                        <option value="Kaya" {% if city == "Kaya" %}selected{% endif %}>Kaya</option>
+                      </select>
+                  </div>
+                  
+                  <!-- Bouton de recherche -->
+                  <div class="text-center">
+                      <button type="submit" class="btn btn-primary">
+                          <i class="fas fa-search"></i> Appliquer les filtres
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarButtonsExample"
+          aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse ms-5" id="navbarButtonsExample">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 nav-menu">
+          <li class="nav-item">
+            <a class="nav-link nav-link-home" href="{% url 'pro_commerce:homepage' %}">Home</a>
+          </li>
+          <!-- Navbar dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+              Categories
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories %}
+                {% if category.souscategories.exists %}
+                  <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="{% url 'pro_commerce:products_by_category' category.slug %}#products-section">{{ category.nom }}</a>
+                    <ul class="dropdown-menu">
+                      {% for subcategory in category.souscategories.all %}
+                        <li><a class="dropdown-item" href="{% url 'pro_commerce:products_by_subcategory' subcategory.slug %}#products-section">{{ subcategory.nom }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% else %}
+                  <li>
+                    <a class="dropdown-item" href="{% url 'pro_commerce:products_by_category' category.slug %}">{{ category.nom }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Produits</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Promotions</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'pro_commerce:apropos' %}">A Propos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'pro_commerce:contact' %}">Contact</a>
+          </li>
+        </ul>
+  
+        <div class="d-flex align-items-center ms-auto">
+            {% if user.is_authenticated %}
+            <a href="{% url 'pro_commerce:dashboard' %}">
+                <button class="btn btn-outline-dark custom-outline-button text-lowercase" type="button">Publiez un produit</button>
+            </a>
+        {% else %}
+            <a href="{% url 'compte:login' %}">
+                <button class="btn btn-outline-dark custom-outline-button text-lowercase" type="button">Publiez un produit</button>
+            </a>
+        {% endif %}
+        
+  
+          <a href="#" class="icon-search" aria-label="Search"><i class="fas fa-search fa-2x mx-2"></i></a>
+          {% if user.is_authenticated %}
+          <div class="dropdown d-inline-block">
+              <button class="btn btn-link text-decoration-none dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                  <!-- Cercle avec l'initiale de l'utilisateur -->
+                  <div class="user-circle d-flex align-items-center justify-content-center me-2">
+                      {{ user.username|slice:":2" }} <!-- Affiche uniquement la première lettre de l'utilisateur -->
+                  </div>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="{% url 'compte:profile' %}">Profil</a></li>
+                  <li><a class="dropdown-item" href="{% url 'pro_commerce:liste_favoris' %}">Liste de favoris</a></li>
+                  <li><a class="dropdown-item" href="{% url 'compte:logout' %}">Déconnexion</a></li>
+              </ul> 
+          </div>
+          {% else %}
+          <a href="{% url 'compte:login' %}" class="d-inline-block" aria-expanded="false">
+              <i class="fas fa-user fa-2x mx-2"></i>
+          </a>
+          {% endif %}
+          
+        </div>
+      </div>
+    </div>
+  </nav>
+  

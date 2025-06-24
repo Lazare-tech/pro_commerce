@@ -1,0 +1,17 @@
+.img-clip-path {
+    height: 100px;
+  }
+  
+  .img-rectangle{
+    clip-path:ellipse(33% 50%);
+  }
+  .img-carree{
+    clip-path:ellipse(50% 50%);
+  }
+  .fa-solid{
+    color:rgb(38, 38, 112)
+  }
+  .categorie{
+    position:relative;
+    top:20px;
+  }
